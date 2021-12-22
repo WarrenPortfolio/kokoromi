@@ -1,6 +1,7 @@
 # Ignore Build Directory
 bin/*
 build/*
+External/*
 
 # Ignore Visual Studio File & Directory
 **/.vs/*

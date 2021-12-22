@@ -5,6 +5,8 @@
   <!-- Project Configuration-->
   <PropertyGroup>
     <Config_MSBuildDir>$(MsbuildThisFileDirectory)\MSBuild\</Config_MSBuildDir>
+    <Config_RootDir>$(MsbuildThisFileDirectory)\..\</Config_RootDir>
+    <Config_ExternalDir>$(Config_RootDir)External\</Config_ExternalDir>
   </PropertyGroup>
   
   <!-- Customize C++ builds -->

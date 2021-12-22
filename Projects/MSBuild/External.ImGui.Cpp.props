@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <External_ImGuiDir>$(Config_ExternalDir)imgui\v1.85\</External_ImGuiDir>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Configuration">
+    <IncludePath>$(External_ImGuiDir);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+
+</Project>

@@ -2,5 +2,74 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source\ExampleApplication.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_dx11.cpp">
+      <Filter>External\imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.cpp">
+      <Filter>External\imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_demo.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_draw.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_tables.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_widgets.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="External">
+      <UniqueIdentifier>{f6ca91a7-4305-4090-a6c6-13f7edcc1230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui">
+      <UniqueIdentifier>{60c040af-7502-4cd1-a932-eebd957fa5d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui\backends">
+      <UniqueIdentifier>{6d784ddc-01d4-445b-8b8b-718dde51c4ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui\misc">
+      <UniqueIdentifier>{3b8327ce-50b6-4ad2-b189-397a6b1da6f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui\misc\debuggers">
+      <UniqueIdentifier>{797390fd-f39e-4c19-b7d3-921a3046e197}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_dx11.h">
+      <Filter>External\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.h">
+      <Filter>External\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imconfig.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imgui.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imgui_internal.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_rectpack.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_textedit.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_truetype.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\External\imgui\v1.85\misc\debuggers\imgui.natvis">
+      <Filter>External\imgui\misc\debuggers</Filter>
+    </Natvis>
   </ItemGroup>
 </Project>
