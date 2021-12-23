@@ -5,6 +5,13 @@ VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExampleApplication", "Projects\ExampleApplication\ExampleApplication.vcxproj", "{090AF0D3-7859-487C-A27B-5C0FD45817D1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuild", "MSBuild", "{9AA450C1-CFDD-4D68-9FA9-E6EC71C4E0CF}"
+	ProjectSection(SolutionItems) = preProject
+		Projects\MSBuild\Common.Cpp.props = Projects\MSBuild\Common.Cpp.props
+		Projects\MSBuild\External.ImGui.Cpp.props = Projects\MSBuild\External.ImGui.Cpp.props
+		Projects\MSBuild\External.Vulkan.Cpp.props = Projects\MSBuild\External.Vulkan.Cpp.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

@@ -3,12 +3,13 @@
   <!-- https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build -->
 
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
-  
+
   <!-- Customize C++ builds -->
   <PropertyGroup>
     <ForceImportAfterCppProps>
       $(ForceImportAfterCppProps);
       $(Config_MSBuildDir)External.ImGui.Cpp.props;
+      $(Config_MSBuildDir)External.Vulkan.Cpp.props;
     </ForceImportAfterCppProps>
   </PropertyGroup>
 

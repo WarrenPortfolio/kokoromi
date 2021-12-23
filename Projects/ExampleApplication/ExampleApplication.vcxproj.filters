@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source\ExampleApplication.cpp" />
-    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_dx11.cpp">
-      <Filter>External\imgui\backends</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.cpp">
       <Filter>External\imgui\backends</Filter>
     </ClCompile>
@@ -22,6 +19,9 @@
     </ClCompile>
     <ClCompile Include="..\..\External\imgui\v1.85\imgui_widgets.cpp">
       <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.cpp">
+      <Filter>External\imgui\backends</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,9 +42,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_dx11.h">
-      <Filter>External\imgui\backends</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.h">
       <Filter>External\imgui\backends</Filter>
     </ClInclude>
@@ -66,10 +63,16 @@
     <ClInclude Include="..\..\External\imgui\v1.85\imstb_truetype.h">
       <Filter>External\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.h">
+      <Filter>External\imgui\backends</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\..\External\imgui\v1.85\misc\debuggers\imgui.natvis">
       <Filter>External\imgui\misc\debuggers</Filter>
     </Natvis>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Directory.Build.props" />
   </ItemGroup>
 </Project>
