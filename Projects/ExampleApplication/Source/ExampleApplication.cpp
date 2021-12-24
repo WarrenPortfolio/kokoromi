@@ -46,7 +46,7 @@
 #define IMGUI_VULKAN_DEBUG_REPORT
 #endif
 
-static VkAllocationCallbacks* g_Allocator = NULL;
+static VkAllocationCallbacks*   g_Allocator = NULL;
 static VkInstance               g_Instance = VK_NULL_HANDLE;
 static VkPhysicalDevice         g_PhysicalDevice = VK_NULL_HANDLE;
 static VkDevice                 g_Device = VK_NULL_HANDLE;
@@ -78,7 +78,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debug_report(VkDebugReportFlagsEXT flags, 
 }
 #endif // IMGUI_VULKAN_DEBUG_REPORT
 
-static void SetupVulkan(const char** extensions, uint32_t extensions_count)
+static void SetupVulkan()
 {
 	VkResult err;
 
@@ -333,12 +333,7 @@ int APIENTRY wWinMain(
 	::UpdateWindow(hwnd);
 
 	// Setup Vulkan
-	std::vector<const char*> extensions =
-	{
-		VK_KHR_SURFACE_EXTENSION_NAME,
-		VK_KHR_WIN32_SURFACE_EXTENSION_NAME
-	};
-	SetupVulkan((const char**)extensions.data(), (uint32_t)extensions.size());
+	SetupVulkan();
 
 	// Create Window Surface
 	VkSurfaceKHR surface;
