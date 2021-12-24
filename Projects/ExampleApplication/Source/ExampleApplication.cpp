@@ -39,12 +39,14 @@
 #include "backends/imgui_impl_win32.h"
 #include "backends/imgui_impl_vulkan.h"
 
+#include <Framework/Graphics/Backend/Vk.Graphics.hpp>
+
 //#define IMGUI_UNLIMITED_FRAME_RATE
 #ifdef _DEBUG
 #define IMGUI_VULKAN_DEBUG_REPORT
 #endif
 
-static VkAllocationCallbacks*   g_Allocator = NULL;
+static VkAllocationCallbacks* g_Allocator = NULL;
 static VkInstance               g_Instance = VK_NULL_HANDLE;
 static VkPhysicalDevice         g_PhysicalDevice = VK_NULL_HANDLE;
 static VkDevice                 g_Device = VK_NULL_HANDLE;
@@ -82,76 +84,13 @@ static void SetupVulkan(const char** extensions, uint32_t extensions_count)
 
 	// Create Vulkan Instance
 	{
-		VkInstanceCreateInfo create_info = {};
-		create_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-		create_info.enabledExtensionCount = extensions_count;
-		create_info.ppEnabledExtensionNames = extensions;
-#ifdef IMGUI_VULKAN_DEBUG_REPORT
-		// Enabling validation layers
-		const char* layers[] = { "VK_LAYER_KHRONOS_validation" };
-		create_info.enabledLayerCount = 1;
-		create_info.ppEnabledLayerNames = layers;
-
-		// Enable debug report extension (we need additional storage, so we duplicate the user array to add our new extension to it)
-		const char** extensions_ext = (const char**)malloc(sizeof(const char*) * (extensions_count + 1));
-		memcpy(extensions_ext, extensions, extensions_count * sizeof(const char*));
-		extensions_ext[extensions_count] = "VK_EXT_debug_report";
-		create_info.enabledExtensionCount = extensions_count + 1;
-		create_info.ppEnabledExtensionNames = extensions_ext;
-
-		// Create Vulkan Instance
-		err = vkCreateInstance(&create_info, g_Allocator, &g_Instance);
-		check_vk_result(err);
-		free(extensions_ext);
-
-		// Get the function pointer (required for any extensions)
-		auto vkCreateDebugReportCallbackEXT = (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(g_Instance, "vkCreateDebugReportCallbackEXT");
-		IM_ASSERT(vkCreateDebugReportCallbackEXT != NULL);
-
-		// Setup the debug report callback
-		VkDebugReportCallbackCreateInfoEXT debug_report_ci = {};
-		debug_report_ci.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
-		debug_report_ci.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT | VK_DEBUG_REPORT_WARNING_BIT_EXT | VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;
-		debug_report_ci.pfnCallback = debug_report;
-		debug_report_ci.pUserData = NULL;
-		err = vkCreateDebugReportCallbackEXT(g_Instance, &debug_report_ci, g_Allocator, &g_DebugReport);
-		check_vk_result(err);
-#else
-		// Create Vulkan Instance without any debug feature
-		err = vkCreateInstance(&create_info, g_Allocator, &g_Instance);
-		check_vk_result(err);
-		IM_UNUSED(g_DebugReport);
-#endif
+		W::VK::CreateInstance(&g_Instance);
+		W::VK::CreateDebugReport(g_Instance, &g_DebugReport);
 	}
 
 	// Select GPU
 	{
-		uint32_t gpu_count;
-		err = vkEnumeratePhysicalDevices(g_Instance, &gpu_count, NULL);
-		check_vk_result(err);
-		IM_ASSERT(gpu_count > 0);
-
-		VkPhysicalDevice* gpus = (VkPhysicalDevice*)malloc(sizeof(VkPhysicalDevice) * gpu_count);
-		err = vkEnumeratePhysicalDevices(g_Instance, &gpu_count, gpus);
-		check_vk_result(err);
-
-		// If a number >1 of GPUs got reported, find discrete GPU if present, or use first one available. This covers
-		// most common cases (multi-gpu/integrated+dedicated graphics). Handling more complicated setups (multiple
-		// dedicated GPUs) is out of scope of this sample.
-		int use_gpu = 0;
-		for (int i = 0; i < (int)gpu_count; i++)
-		{
-			VkPhysicalDeviceProperties properties;
-			vkGetPhysicalDeviceProperties(gpus[i], &properties);
-			if (properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
-			{
-				use_gpu = i;
-				break;
-			}
-		}
-
-		g_PhysicalDevice = gpus[use_gpu];
-		free(gpus);
+		W::VK::PickPhysicalDevice(g_Instance, &g_PhysicalDevice);
 	}
 
 	// Select graphics queue family
@@ -193,28 +132,7 @@ static void SetupVulkan(const char** extensions, uint32_t extensions_count)
 
 	// Create Descriptor Pool
 	{
-		VkDescriptorPoolSize pool_sizes[] =
-		{
-			{ VK_DESCRIPTOR_TYPE_SAMPLER, 1000 },
-			{ VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1000 },
-			{ VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 1000 },
-			{ VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 1000 },
-			{ VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER, 1000 },
-			{ VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, 1000 },
-			{ VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1000 },
-			{ VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1000 },
-			{ VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, 1000 },
-			{ VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, 1000 },
-			{ VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT, 1000 }
-		};
-		VkDescriptorPoolCreateInfo pool_info = {};
-		pool_info.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-		pool_info.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
-		pool_info.maxSets = 1000 * IM_ARRAYSIZE(pool_sizes);
-		pool_info.poolSizeCount = (uint32_t)IM_ARRAYSIZE(pool_sizes);
-		pool_info.pPoolSizes = pool_sizes;
-		err = vkCreateDescriptorPool(g_Device, &pool_info, g_Allocator, &g_DescriptorPool);
-		check_vk_result(err);
+		W::VK::CreateDescriptorPool(g_Device, &g_DescriptorPool);
 	}
 }
 
@@ -360,16 +278,6 @@ static void FramePresent(ImGui_ImplVulkanH_Window* wd)
 	wd->SemaphoreIndex = (wd->SemaphoreIndex + 1) % wd->ImageCount; // Now we can use the next set of semaphores
 }
 
-static VkResult CreateWindowSurface(HWND hwnd, VkSurfaceKHR* surface)
-{
-	VkWin32SurfaceCreateInfoKHR createInfo = {};
-	createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-	createInfo.hwnd = hwnd;
-	createInfo.hinstance = GetModuleHandle(nullptr);
-
-	return vkCreateWin32SurfaceKHR(g_Instance, &createInfo, nullptr, surface);
-}
-
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -384,15 +292,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE:
 		if (g_Device != VK_NULL_HANDLE && wParam != SIZE_MINIMIZED)
 		{
-			int width = LOWORD(lParam);
-			int height = HIWORD(lParam);
-			if (width > 0 && height > 0)
-			{
-				ImGui_ImplVulkan_SetMinImageCount(g_MinImageCount);
-				ImGui_ImplVulkanH_CreateOrResizeWindow(g_Instance, g_PhysicalDevice, g_Device, &g_MainWindowData, g_QueueFamily, g_Allocator, width, height, g_MinImageCount);
-				g_MainWindowData.FrameIndex = 0;
-				g_SwapChainRebuild = false;
-			}
+			g_SwapChainRebuild = true;
 		}
 		return 0;
 	case WM_SYSCOMMAND:
@@ -419,11 +319,14 @@ int APIENTRY wWinMain(
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nCmdShow);
 
+	int windowWidth = 1280;
+	int windowHeight = 800;
+
 	// Create application window
 	//ImGui_ImplWin32_EnableDpiAwareness();
 	WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
 	::RegisterClassEx(&wc);
-	HWND hwnd = ::CreateWindow(wc.lpszClassName, _T("Dear ImGui Vulkan Example"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+	HWND hwnd = ::CreateWindow(wc.lpszClassName, _T("Dear ImGui Vulkan Example"), WS_OVERLAPPEDWINDOW, 100, 100, windowWidth, windowHeight, NULL, NULL, wc.hInstance, NULL);
 
 	// Show the window
 	::ShowWindow(hwnd, SW_SHOWDEFAULT);
@@ -439,14 +342,11 @@ int APIENTRY wWinMain(
 
 	// Create Window Surface
 	VkSurfaceKHR surface;
-	VkResult err = CreateWindowSurface(hwnd, &surface);
-	check_vk_result(err);
+	W::VK::CreateWindowSurface((uintptr_t)hwnd, g_Instance, &surface);
 
 	// Create Framebuffers
-	int w = 1280;
-	int h = 800;
 	ImGui_ImplVulkanH_Window* wd = &g_MainWindowData;
-	SetupVulkanWindow(wd, surface, w, h);
+	SetupVulkanWindow(wd, surface, windowWidth, windowHeight);
 
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -489,6 +389,8 @@ int APIENTRY wWinMain(
 	//io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
 	//ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
 	//IM_ASSERT(font != NULL);
+
+	VkResult err;
 
 	// Upload Fonts
 	{
@@ -544,6 +446,24 @@ int APIENTRY wWinMain(
 		}
 		if (done)
 			break;
+
+		// Resize swap chain?
+		if (g_SwapChainRebuild)
+		{
+			RECT rect = { 0, 0, 0, 0 };
+			::GetClientRect(hwnd, &rect);
+
+			int width = rect.right - rect.left;
+			int height = rect.bottom - rect.top;
+
+			if (width > 0 && height > 0)
+			{
+				ImGui_ImplVulkan_SetMinImageCount(g_MinImageCount);
+				ImGui_ImplVulkanH_CreateOrResizeWindow(g_Instance, g_PhysicalDevice, g_Device, &g_MainWindowData, g_QueueFamily, g_Allocator, width, height, g_MinImageCount);
+				g_MainWindowData.FrameIndex = 0;
+				g_SwapChainRebuild = false;
+			}
+		}
 
 		// Start the Dear ImGui frame
 		ImGui_ImplVulkan_NewFrame();

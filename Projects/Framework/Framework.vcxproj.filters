@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="External">
+      <UniqueIdentifier>{279c49c3-e939-4712-ba6b-d6595b2f37c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui">
+      <UniqueIdentifier>{3b4185a8-2019-4752-8586-576e6fa03503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui\backends">
+      <UniqueIdentifier>{1468ae0e-ada7-4adf-9f5a-75c939c18a53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui\misc">
+      <UniqueIdentifier>{4cd741a6-929d-4033-9d56-40147c42f7ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\imgui\misc\debuggers">
+      <UniqueIdentifier>{70be383f-a660-445e-bad8-5d32639413a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{ec5d30cb-2fc9-47a7-bc61-56b95db0b24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Platform">
+      <UniqueIdentifier>{6bca74ea-17c0-4e43-8466-bc80430f9988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Text">
+      <UniqueIdentifier>{baa773ba-4e6a-4b46-ac62-db5693eb25d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Debug">
+      <UniqueIdentifier>{7a9bd8ab-f1b4-41dd-bf98-3654e479016b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Cryptography">
+      <UniqueIdentifier>{094fc262-4af8-4860-a586-3bcb845132aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics">
+      <UniqueIdentifier>{13e7cec3-155e-4ca9-a4f8-d991e7742376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics\Backend">
+      <UniqueIdentifier>{c4336411-a076-4c80-be21-a511f0061eb1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Framework\Cryptography\Hash.cpp">
+      <Filter>Framework\Cryptography</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Debug\Logger.cpp">
+      <Filter>Framework\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Platform\Win32.Logger.cpp">
+      <Filter>Framework\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Platform\Win32.Text.cpp">
+      <Filter>Framework\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Text\Text.cpp">
+      <Filter>Framework\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_demo.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_draw.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_tables.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_widgets.cpp">
+      <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.cpp">
+      <Filter>External\imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.cpp">
+      <Filter>External\imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Graphics.cpp">
+      <Filter>Framework\Graphics\Backend</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Win32.Graphics.cpp">
+      <Filter>Framework\Graphics\Backend</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Framework\Cryptography\Hash.hpp">
+      <Filter>Framework\Cryptography</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Debug\Debug.hpp">
+      <Filter>Framework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Debug\Logger.hpp">
+      <Filter>Framework\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Text\Text.hpp">
+      <Filter>Framework\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imconfig.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imgui.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imgui_internal.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_rectpack.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_textedit.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_truetype.h">
+      <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.h">
+      <Filter>External\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.h">
+      <Filter>External\imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp">
+      <Filter>Framework\Graphics\Backend</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Directory.Build.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\External\imgui\v1.85\misc\debuggers\imgui.natvis">
+      <Filter>External\imgui\misc\debuggers</Filter>
+    </Natvis>
+  </ItemGroup>
+</Project>

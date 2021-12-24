@@ -8,9 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuild", "MSBuild", "{9AA450C1-CFDD-4D68-9FA9-E6EC71C4E0CF}"
 	ProjectSection(SolutionItems) = preProject
 		Projects\MSBuild\Common.Cpp.props = Projects\MSBuild\Common.Cpp.props
+		Projects\Directory.Build.props = Projects\Directory.Build.props
 		Projects\MSBuild\External.ImGui.Cpp.props = Projects\MSBuild\External.ImGui.Cpp.props
 		Projects\MSBuild\External.Vulkan.Cpp.props = Projects\MSBuild\External.Vulkan.Cpp.props
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Framework", "Projects\Framework\Framework.vcxproj", "{D218DA91-BCF5-4B11-879F-E48266371625}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +25,10 @@ Global
 		{090AF0D3-7859-487C-A27B-5C0FD45817D1}.Debug|x64.Build.0 = Debug|x64
 		{090AF0D3-7859-487C-A27B-5C0FD45817D1}.Release|x64.ActiveCfg = Release|x64
 		{090AF0D3-7859-487C-A27B-5C0FD45817D1}.Release|x64.Build.0 = Release|x64
+		{D218DA91-BCF5-4B11-879F-E48266371625}.Debug|x64.ActiveCfg = Debug|x64
+		{D218DA91-BCF5-4B11-879F-E48266371625}.Debug|x64.Build.0 = Debug|x64
+		{D218DA91-BCF5-4B11-879F-E48266371625}.Release|x64.ActiveCfg = Release|x64
+		{D218DA91-BCF5-4B11-879F-E48266371625}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

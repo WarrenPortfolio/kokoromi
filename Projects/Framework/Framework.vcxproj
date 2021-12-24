@@ -11,32 +11,58 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\ExampleApplication.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_demo.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_draw.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_tables.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.85\imgui_widgets.cpp" />
+    <ClCompile Include="Source\Framework\Cryptography\Hash.cpp" />
+    <ClCompile Include="Source\Framework\Debug\Logger.cpp" />
+    <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Graphics.cpp" />
+    <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Win32.Graphics.cpp" />
+    <ClCompile Include="Source\Framework\Platform\Win32.Logger.cpp" />
+    <ClCompile Include="Source\Framework\Platform\Win32.Text.cpp" />
+    <ClCompile Include="Source\Framework\Text\Text.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.h" />
+    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\External\imgui\v1.85\imconfig.h" />
+    <ClInclude Include="..\..\External\imgui\v1.85\imgui.h" />
+    <ClInclude Include="..\..\External\imgui\v1.85\imgui_internal.h" />
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_rectpack.h" />
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_textedit.h" />
+    <ClInclude Include="..\..\External\imgui\v1.85\imstb_truetype.h" />
+    <ClInclude Include="Source\Framework\Cryptography\Hash.hpp" />
+    <ClInclude Include="Source\Framework\Debug\Debug.hpp" />
+    <ClInclude Include="Source\Framework\Debug\Logger.hpp" />
+    <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp" />
+    <ClInclude Include="Source\Framework\Text\Text.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Directory.Build.props" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework\Framework.vcxproj">
-      <Project>{d218da91-bcf5-4b11-879f-e48266371625}</Project>
-    </ProjectReference>
+    <Natvis Include="..\..\External\imgui\v1.85\misc\debuggers\imgui.natvis" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{090af0d3-7859-487c-a27b-5c0fd45817d1}</ProjectGuid>
+    <ProjectGuid>{D218DA91-BCF5-4B11-879F-E48266371625}</ProjectGuid>
     <RootNamespace>ExampleApplication</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
