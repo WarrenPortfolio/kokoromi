@@ -2,6 +2,7 @@
 bin/*
 build/*
 External/*
+packages/*
 
 # Ignore Visual Studio File & Directory
 **/.vs/*
