@@ -11,13 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.cpp" />
-    <ClCompile Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\..\External\imgui\v1.85\imgui.cpp" />
-    <ClCompile Include="..\..\External\imgui\v1.85\imgui_demo.cpp" />
-    <ClCompile Include="..\..\External\imgui\v1.85\imgui_draw.cpp" />
-    <ClCompile Include="..\..\External\imgui\v1.85\imgui_tables.cpp" />
-    <ClCompile Include="..\..\External\imgui\v1.85\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.87\backends\imgui_impl_vulkan.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.87\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.87\imgui.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.87\imgui_demo.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.87\imgui_draw.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.87\imgui_tables.cpp" />
+    <ClCompile Include="..\..\External\imgui\v1.87\imgui_widgets.cpp" />
     <ClCompile Include="Source\Framework\Cryptography\Hash.cpp" />
     <ClCompile Include="Source\Framework\Debug\Logger.cpp" />
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Graphics.cpp" />
@@ -27,14 +27,14 @@
     <ClCompile Include="Source\Framework\Text\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_vulkan.h" />
-    <ClInclude Include="..\..\External\imgui\v1.85\backends\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\External\imgui\v1.85\imconfig.h" />
-    <ClInclude Include="..\..\External\imgui\v1.85\imgui.h" />
-    <ClInclude Include="..\..\External\imgui\v1.85\imgui_internal.h" />
-    <ClInclude Include="..\..\External\imgui\v1.85\imstb_rectpack.h" />
-    <ClInclude Include="..\..\External\imgui\v1.85\imstb_textedit.h" />
-    <ClInclude Include="..\..\External\imgui\v1.85\imstb_truetype.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\backends\imgui_impl_vulkan.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\backends\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\imconfig.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\imgui.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\imgui_internal.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\imstb_rectpack.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\imstb_textedit.h" />
+    <ClInclude Include="..\..\External\imgui\v1.87\imstb_truetype.h" />
     <ClInclude Include="Source\Framework\Cryptography\Hash.hpp" />
     <ClInclude Include="Source\Framework\Debug\Debug.hpp" />
     <ClInclude Include="Source\Framework\Debug\Logger.hpp" />
@@ -45,7 +45,7 @@
     <None Include="Directory.Build.props" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="..\..\External\imgui\v1.85\misc\debuggers\imgui.natvis" />
+    <Natvis Include="..\..\External\imgui\v1.87\misc\debuggers\imgui.natvis" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <External_ImGuiDir>$(Config_ExternalDir)imgui\v1.85\</External_ImGuiDir>
+    <External_ImGuiDir>$(Config_ExternalDir)imgui\v1.87\</External_ImGuiDir>
   </PropertyGroup>
 
   <PropertyGroup Label="Configuration">
