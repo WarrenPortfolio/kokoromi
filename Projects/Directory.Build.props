@@ -1,14 +1,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
   <!-- Directory.Build.props Documentation -->
   <!-- https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build -->
-  
+
   <!-- Project Configuration-->
   <PropertyGroup>
     <Config_MSBuildDir>$(MsbuildThisFileDirectory)\MSBuild\</Config_MSBuildDir>
     <Config_RootDir>$(MsbuildThisFileDirectory)\..\</Config_RootDir>
     <Config_ExternalDir>$(Config_RootDir)External\</Config_ExternalDir>
   </PropertyGroup>
-  
+
   <!-- Customize C++ builds -->
   <PropertyGroup>
     <ForceImportAfterCppProps>$(Config_MSBuildDir)Common.Cpp.props;$(ForceImportAfterCppProps)</ForceImportAfterCppProps>

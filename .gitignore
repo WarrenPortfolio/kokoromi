@@ -1,9 +1,14 @@
-# Ignore Build Directory
+# Ignore Visual Studio Build Directory
 bin/*
 build/*
-External/*
 packages/*
 
 # Ignore Visual Studio File & Directory
 **/.vs/*
 *.vcxproj.user
+
+# Ignore External Project Files
+External/*
+
+# Ignore Data Files
+*.blend1

@@ -1,0 +1,20 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- FBX SDK 2020.2.1 VS2019 -->
+  <!-- https://www.autodesk.com/developer-network/platform-technologies/fbx-sdk-2020-2-1 -->
+
+  <PropertyGroup>
+    <FBX_SDK_2020_2_1>C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1</FBX_SDK_2020_2_1>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(FBX_SDK_2020_2_1)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(FBX_SDK_2020_2_1)\lib\vs2019\x64\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+
+</Project>
