@@ -9,18 +9,24 @@ namespace W
 		char	buffer[256];
 		wchar_t	bufferWide[256];
 
+		EXPECT_TRUE(Text::IsAscii(u8"Hello"));
+		EXPECT_FALSE(Text::IsAscii(u8"こんにちは"));
+
+		EXPECT_TRUE(Text::IsNullOrEmpty(nullptr));
+		EXPECT_TRUE(Text::IsNullOrEmpty(""));
+		EXPECT_FALSE(Text::IsNullOrEmpty(u8"Hello"));
+		EXPECT_FALSE(Text::IsNullOrEmpty(u8"こんにちは"));
+
 		Text::Format(buffer, "%s%s!", "Hello", "World");
 		EXPECT_STREQ(buffer, "HelloWorld!");
-		EXPECT_TRUE(Text::IsAscii(buffer));
 
-		Text::Format(buffer, "%s-%s", u8"こんにちは", u8"안녕하세요");
-		EXPECT_STREQ(buffer, u8"こんにちは-안녕하세요");
-		EXPECT_FALSE(Text::IsAscii(buffer));
+		Text::Format(buffer, "%s-%s", u8"Hello", u8"こんにちは");
+		EXPECT_STREQ(buffer, u8"Hello-こんにちは");
 
-		Text::UTF8::Encode(L"Hello-こんにちは-안녕하세요", buffer);
-		EXPECT_STREQ(buffer, u8"Hello-こんにちは-안녕하세요");
+		Text::UTF8::Encode(L"Hello-こんにちは", buffer);
+		EXPECT_STREQ(buffer, u8"Hello-こんにちは");
 
-		Text::UTF8::Decode(u8"Hello-こんにちは-안녕하세요", bufferWide);
-		EXPECT_STREQ(bufferWide, L"Hello-こんにちは-안녕하세요");
+		Text::UTF8::Decode(u8"Hello-こんにちは", bufferWide);
+		EXPECT_STREQ(bufferWide, L"Hello-こんにちは");
 	}
 }
