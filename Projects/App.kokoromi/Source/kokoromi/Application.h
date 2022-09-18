@@ -10,7 +10,7 @@ public:
 	void Run();
 	void Shutdown();
 
-	uint64_t MainWindow() const { return mMainWindow; }
+	uintptr_t MainWindow() const { return mMainWindow; }
 
 private:
 	Application() = default;
@@ -19,5 +19,5 @@ private:
 
 private:
 	bool mShouldExit = false;
-	uint64_t mMainWindow = 0;
+	uintptr_t mMainWindow = 0;
 };

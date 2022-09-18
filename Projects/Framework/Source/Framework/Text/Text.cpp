@@ -15,6 +15,15 @@ namespace W
 		return true;
 	}
 
+	bool Text::IsNullOrEmpty(const char* text)
+	{
+		if (text == nullptr || text[0] == '\0')
+		{
+			return true;
+		}
+		return false;
+	}
+
 	void Text::Format(char* outBuffer, int outBufferSize, const char* format, ...)
 	{
 		va_list args;

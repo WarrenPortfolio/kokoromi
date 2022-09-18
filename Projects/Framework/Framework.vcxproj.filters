@@ -81,6 +81,15 @@
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Win32.Graphics.cpp">
       <Filter>Framework\Graphics\Backend</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Framework\Platform\Process.Win32.cpp">
+      <Filter>Framework\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Platform\OperatingSystem.Win32.cpp">
+      <Filter>Framework\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Text\StringBuilder.cpp">
+      <Filter>Framework\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Framework\Cryptography\Hash.hpp">
@@ -121,6 +130,15 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp">
       <Filter>Framework\Graphics\Backend</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Platform\Process.hpp">
+      <Filter>Framework\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Platform\OperatingSystem.hpp">
+      <Filter>Framework\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Text\StringBuilder.hpp">
+      <Filter>Framework\Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

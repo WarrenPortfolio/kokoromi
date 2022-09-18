@@ -24,7 +24,10 @@
 #include <backends/imgui_impl_win32.h>
 #include <backends/imgui_impl_vulkan.h>
 
-//#include <renderdoc_app.h>
+//#define INIT_RENDER_DOC
+#ifdef INIT_RENDER_DOC
+#include <renderdoc_app.h>
+#endif
 
 #include "Renderer.h"
 
@@ -33,6 +36,7 @@
 
 #include <Framework/Debug/Debug.hpp>
 #include <Framework/Graphics/Backend/Vk.Graphics.hpp>
+#include <Framework/Platform/Process.hpp>
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
@@ -43,12 +47,6 @@ const std::vector<const char*> validationLayers = {
 const std::vector<const char*> deviceExtensions = {
 	VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
-
-#ifdef NDEBUG
-static constexpr bool enableValidationLayers = false;
-#else
-static constexpr bool s_enableValidationLayers = true;
-#endif
 
 //////////////////////////////////////////////////////////////////////////
 //                            File System                               //
@@ -107,7 +105,6 @@ Renderer::~Renderer() = default;
 void Renderer::Startup()
 {
 	InitRenderDoc();
-	InitWindow();
 	InitVulkan();
 	InitImGui();
 
@@ -350,8 +347,7 @@ void Renderer::FramePresent()
 
 void Renderer::InitRenderDoc()
 {
-#define INIT_RENDER_DOC 0
-#if INIT_RENDER_DOC
+#ifdef INIT_RENDER_DOC
 	static RENDERDOC_API_1_3_0* s_renderDocApi = nullptr;
 
 	if (HMODULE mod = LoadLibrary("C:\\Program Files\\RenderDoc\\renderdoc.dll"))
@@ -361,11 +357,6 @@ void Renderer::InitRenderDoc()
 		assert(ret == 1);
 	}
 #endif // INIT_RENDER_DOC
-}
-
-void Renderer::InitWindow()
-{
-
 }
 
 void Renderer::InitImGui()
@@ -427,17 +418,15 @@ void Renderer::InitImGui()
 void Renderer::InitVulkan()
 {
 	// Create Vulkan Instance
-	{
-		W::VK::CreateInstance(&mInstance);
-		W::VK::CreateDebugReport(mInstance, &mCallbackExt);
-	}
-
+	W::VK::CreateInstance(&mInstance);
+	W::VK::CreateDebugReport(mInstance, &mCallbackExt);
+	
 	// Select GPU
-	{
-		W::VK::PickPhysicalDevice(mInstance, &mPhysicalDevice);
-	}
+	W::VK::PickPhysicalDevice(mInstance, &mPhysicalDevice);
 
-	CreateSurface();
+	// Create Surface
+	W::VK::CreateWindowSurface(Application::Current().MainWindow(), mInstance, &mSurface);
+
 	PickPhysicalDevice();
 	CreateLogicalDevice();
 	CreateSwapChain();
@@ -451,9 +440,7 @@ void Renderer::InitVulkan()
 	CreateUniformBuffers();
 
 	// Create Descriptor Pool
-	{
-		W::VK::CreateDescriptorPool(mDevice, &mDescriptorPool);
-	}
+	W::VK::CreateDescriptorPool(mDevice, &mDescriptorPool);
 
 	CreateFrameData();
 }
@@ -493,21 +480,6 @@ void Renderer::RecreateSwapChain()
 	CreateGraphicsPipeline();
 	CreateDepthResources();
 	CreateFramebuffers();
-}
-
-void Renderer::CreateInstance()
-{
-
-}
-
-void Renderer::SetupDebugCallback()
-{
-
-}
-
-void Renderer::CreateSurface()
-{
-	W::VK::CreateWindowSurface(Application::Current().MainWindow() ,mInstance, &mSurface);
 }
 
 void Renderer::PickPhysicalDevice()
@@ -776,9 +748,10 @@ void Renderer::CreateMaterial(Material * material)
 	vkUpdateDescriptorSets(mDevice, static_cast<uint32_t>(descriptorWrites.size()), descriptorWrites.data(), 0, nullptr);
 }
 
-void Renderer::CreateGraphicsPipeline() {
-	auto vertShaderCode = ReadFile("Data/Shaders/shader.vert.spv");
-	auto fragShaderCode = ReadFile("Data/Shaders/shader.frag.spv");
+void Renderer::CreateGraphicsPipeline()
+{
+	auto vertShaderCode = ReadFile("build/Data/Shaders/shader.vert.spv");
+	auto fragShaderCode = ReadFile("build/Data/Shaders/shader.frag.spv");
 
 	VkShaderModule vertShaderModule = CreateShaderModule(vertShaderCode);
 	VkShaderModule fragShaderModule = CreateShaderModule(fragShaderCode);

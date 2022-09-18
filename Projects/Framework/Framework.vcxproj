@@ -22,8 +22,11 @@
     <ClCompile Include="Source\Framework\Debug\Logger.cpp" />
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Graphics.cpp" />
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Win32.Graphics.cpp" />
+    <ClCompile Include="Source\Framework\Platform\OperatingSystem.Win32.cpp" />
+    <ClCompile Include="Source\Framework\Platform\Process.Win32.cpp" />
     <ClCompile Include="Source\Framework\Platform\Win32.Logger.cpp" />
     <ClCompile Include="Source\Framework\Platform\Win32.Text.cpp" />
+    <ClCompile Include="Source\Framework\Text\StringBuilder.cpp" />
     <ClCompile Include="Source\Framework\Text\Text.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +42,9 @@
     <ClInclude Include="Source\Framework\Debug\Debug.hpp" />
     <ClInclude Include="Source\Framework\Debug\Logger.hpp" />
     <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp" />
+    <ClInclude Include="Source\Framework\Platform\OperatingSystem.hpp" />
+    <ClInclude Include="Source\Framework\Platform\Process.hpp" />
+    <ClInclude Include="Source\Framework\Text\StringBuilder.hpp" />
     <ClInclude Include="Source\Framework\Text\Text.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +100,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SupportJustMyCode>true</SupportJustMyCode>
       <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

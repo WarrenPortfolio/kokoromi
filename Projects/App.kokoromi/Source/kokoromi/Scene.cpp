@@ -446,8 +446,12 @@ std::unique_ptr<Scene> Scene::Load(const char* filePath)
 			}
 
 			// Convert mesh, NURBS and patch into triangle mesh
+
+			// pReplace - If true, replace the original meshes with the new triangulated meshes on all the nodes, and delete the original meshes. Otherwise, original meshes are left untouched.
+			constexpr bool TriangulateOpt_Replace = true;
+
 			FbxGeometryConverter geomConverter(fbxManager);
-			geomConverter.Triangulate(fbxScene, /*replace*/true);
+			geomConverter.Triangulate(fbxScene, TriangulateOpt_Replace);
 
 			// Build the graphics resources
 			BuildMaterials(*scene, fbxScene);

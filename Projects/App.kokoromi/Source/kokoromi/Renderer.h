@@ -142,17 +142,11 @@ private:
 
 private:
 	void InitRenderDoc();
-	void InitWindow();
 	void InitVulkan();
 	void InitImGui();
 
-	void SetupDebugCallback();
-
 	void CleanupSwapChain();
 	void RecreateSwapChain();
-
-	void CreateInstance();
-	void CreateSurface();
 
 	void PickPhysicalDevice();
 	void CreateLogicalDevice();

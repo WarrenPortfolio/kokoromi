@@ -1,5 +1,8 @@
 #include "Application.h"
+
 #include <kokoromi/Renderer.h>
+#include <kokoromi/Build.h>
+
 #include <Framework/Debug/Debug.hpp>
 
 #include <chrono>
@@ -24,6 +27,10 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 // Win32 message handler
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
+	// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
+	// - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
+	// Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
 		return true;
 
@@ -55,6 +62,9 @@ void Application::Shutdown()
 
 void Application::Run()
 {
+	// Build Data
+	Build::CompileShaders();
+
 	// Register the window class
 	WNDCLASSEX wc = {};
 	wc.cbSize = sizeof(WNDCLASSEX);
@@ -90,8 +100,9 @@ void Application::Run()
 
 	// On Windows, steady_clock is now based on QueryPerformanceCounter()
 	// https://docs.microsoft.com/en-us/cpp/standard-library/chrono
-	using TimePoint = std::chrono::steady_clock::time_point;
-	const TimePoint startTime = std::chrono::steady_clock::now();
+	using ChronoClock = std::chrono::steady_clock;
+	using TimePoint = ChronoClock::time_point;
+	const TimePoint startTime = ChronoClock::now();
 	TimePoint previosFrameTime = startTime;
 	TimePoint currentFrameTime = startTime;
 
@@ -99,26 +110,30 @@ void Application::Run()
 	while (mShouldExit == false)
 	{
 		// Poll and handle messages (inputs, window resize, etc.)
-		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-		// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-		// - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-		// Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-		MSG msg;
-		while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
 		{
-			::TranslateMessage(&msg);
-			::DispatchMessage(&msg);
-			if (msg.message == WM_QUIT)
+			MSG msg;
+			while (::PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
 			{
-				mShouldExit = true;
+				::TranslateMessage(&msg);
+				::DispatchMessage(&msg);
+
+				// check application exit
+				if (msg.message == WM_QUIT)
+				{
+					mShouldExit = true;
+				}
+			}
+
+			// exit application loop
+			if (mShouldExit)
+			{
+				continue; 
 			}
 		}
-		if (mShouldExit)
-			break;
 
 		// get current and previous frame time
 		previosFrameTime = currentFrameTime;
-		currentFrameTime = std::chrono::steady_clock::now();
+		currentFrameTime = ChronoClock::now();
 
 		// calculate delta time in seconds
 		float deltaTime = std::chrono::duration<float, std::chrono::seconds::period>(currentFrameTime - previosFrameTime).count();

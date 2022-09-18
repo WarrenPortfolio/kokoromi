@@ -12,12 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\kokoromi\Application.cpp" />
+    <ClCompile Include="Source\kokoromi\Build.cpp" />
     <ClCompile Include="Source\kokoromi\Renderer.cpp" />
     <ClCompile Include="Source\kokoromi\Scene.cpp" />
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\kokoromi\Application.h" />
+    <ClInclude Include="Source\kokoromi\Build.h" />
     <ClInclude Include="Source\kokoromi\Renderer.h" />
     <ClInclude Include="Source\kokoromi\Scene.h" />
   </ItemGroup>

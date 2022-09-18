@@ -6,6 +6,7 @@ namespace W
 	namespace Text
 	{
 		bool IsAscii(const char* text);
+		bool IsNullOrEmpty(const char* text);
 
 		void Format(char* outBuffer, int outBufferSize, const char* format, ...);
 		void Format(char* outBuffer, int outBufferSize, const char* format, va_list args);
