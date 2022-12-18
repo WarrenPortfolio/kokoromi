@@ -1,10 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <!-- Dear ImGui v1.87 -->
+  <!-- Dear ImGui -->
   <!-- https://github.com/ocornut/imgui -->
 
   <PropertyGroup>
-    <External_ImGuiDir>$(Config_ExternalDir)imgui\v1.87\</External_ImGuiDir>
+    <External_ImGuiDir>$(Config_ExternalDir)imgui\v1.89.1\</External_ImGuiDir>
   </PropertyGroup>
 
   <PropertyGroup Label="Configuration">

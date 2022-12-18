@@ -54,25 +54,25 @@
     <ClCompile Include="Source\Framework\Text\Text.cpp">
       <Filter>Framework\Text</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\imgui\v1.87\imgui.cpp">
+    <ClCompile Include="..\..\External\imgui\v1.89.1\imgui.cpp">
       <Filter>External\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\imgui\v1.87\imgui_demo.cpp">
+    <ClCompile Include="..\..\External\imgui\v1.89.1\imgui_demo.cpp">
       <Filter>External\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\imgui\v1.87\imgui_draw.cpp">
+    <ClCompile Include="..\..\External\imgui\v1.89.1\imgui_draw.cpp">
       <Filter>External\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\imgui\v1.87\imgui_tables.cpp">
+    <ClCompile Include="..\..\External\imgui\v1.89.1\imgui_tables.cpp">
       <Filter>External\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\imgui\v1.87\imgui_widgets.cpp">
+    <ClCompile Include="..\..\External\imgui\v1.89.1\imgui_widgets.cpp">
       <Filter>External\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\imgui\v1.87\backends\imgui_impl_vulkan.cpp">
+    <ClCompile Include="..\..\External\imgui\v1.89.1\backends\imgui_impl_vulkan.cpp">
       <Filter>External\imgui\backends</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\External\imgui\v1.87\backends\imgui_impl_win32.cpp">
+    <ClCompile Include="..\..\External\imgui\v1.89.1\backends\imgui_impl_win32.cpp">
       <Filter>External\imgui\backends</Filter>
     </ClCompile>
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Graphics.cpp">
@@ -104,28 +104,28 @@
     <ClInclude Include="Source\Framework\Text\Text.hpp">
       <Filter>Framework\Text</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\imconfig.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\imconfig.h">
       <Filter>External\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\imgui.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\imgui.h">
       <Filter>External\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\imgui_internal.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\imgui_internal.h">
       <Filter>External\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\imstb_rectpack.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\imstb_rectpack.h">
       <Filter>External\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\imstb_textedit.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\imstb_textedit.h">
       <Filter>External\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\imstb_truetype.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\imstb_truetype.h">
       <Filter>External\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\backends\imgui_impl_vulkan.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\backends\imgui_impl_vulkan.h">
       <Filter>External\imgui\backends</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\External\imgui\v1.87\backends\imgui_impl_win32.h">
+    <ClInclude Include="..\..\External\imgui\v1.89.1\backends\imgui_impl_win32.h">
       <Filter>External\imgui\backends</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp">
@@ -145,7 +145,7 @@
     <None Include="Directory.Build.props" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="..\..\External\imgui\v1.87\misc\debuggers\imgui.natvis">
+    <Natvis Include="..\..\External\imgui\v1.89.1\misc\debuggers\imgui.natvis">
       <Filter>External\imgui\misc\debuggers</Filter>
     </Natvis>
   </ItemGroup>
