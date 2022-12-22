@@ -427,7 +427,6 @@ void Renderer::InitVulkan()
 	// Create Surface
 	W::VK::CreateWindowSurface(Application::Current().MainWindow(), mInstance, &mSurface);
 
-	PickPhysicalDevice();
 	CreateLogicalDevice();
 	CreateSwapChain();
 	CreateImageViews();
@@ -480,27 +479,6 @@ void Renderer::RecreateSwapChain()
 	CreateGraphicsPipeline();
 	CreateDepthResources();
 	CreateFramebuffers();
-}
-
-void Renderer::PickPhysicalDevice()
-{
-	uint32_t deviceCount = 0;
-	vkEnumeratePhysicalDevices(mInstance, &deviceCount, nullptr);
-	Debug_AssertMsg(deviceCount != 0, "failed to find GPUs with Vulkan support!");
-
-	std::vector<VkPhysicalDevice> devices(deviceCount);
-	vkEnumeratePhysicalDevices(mInstance, &deviceCount, devices.data());
-
-	for (const auto& device : devices)
-	{
-		if (IsDeviceSuitable(device))
-		{
-			mPhysicalDevice = device;
-			break;
-		}
-	}
-
-	Debug_AssertMsg(mPhysicalDevice != VK_NULL_HANDLE, "failed to find a suitable GPU!");
 }
 
 void Renderer::CreateLogicalDevice()

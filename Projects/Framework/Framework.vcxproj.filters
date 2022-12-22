@@ -45,12 +45,6 @@
     <ClCompile Include="Source\Framework\Debug\Logger.cpp">
       <Filter>Framework\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Framework\Platform\Win32.Logger.cpp">
-      <Filter>Framework\Platform</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Framework\Platform\Win32.Text.cpp">
-      <Filter>Framework\Platform</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Framework\Text\Text.cpp">
       <Filter>Framework\Text</Filter>
     </ClCompile>
@@ -89,6 +83,21 @@
     </ClCompile>
     <ClCompile Include="Source\Framework\Text\StringBuilder.cpp">
       <Filter>Framework\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Debug\Logger.Win32.cpp">
+      <Filter>Framework\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Text\Text.Win32.cpp">
+      <Filter>Framework\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Platform\Application.cpp">
+      <Filter>Framework\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Graphics\Renderer.cpp">
+      <Filter>Framework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Framework\Platform\Application.Win32.cpp">
+      <Filter>Framework\Platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="Source\Framework\Text\StringBuilder.hpp">
       <Filter>Framework\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Platform\Application.hpp">
+      <Filter>Framework\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Graphics\Renderer.hpp">
+      <Filter>Framework\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -148,7 +148,6 @@ private:
 	void CleanupSwapChain();
 	void RecreateSwapChain();
 
-	void PickPhysicalDevice();
 	void CreateLogicalDevice();
 
 	void CreateSwapChain();

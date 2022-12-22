@@ -20,14 +20,17 @@
     <ClCompile Include="..\..\External\imgui\v1.89.1\imgui_widgets.cpp" />
     <ClCompile Include="Source\Framework\Cryptography\Hash.cpp" />
     <ClCompile Include="Source\Framework\Debug\Logger.cpp" />
+    <ClCompile Include="Source\Framework\Debug\Logger.Win32.cpp" />
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Graphics.cpp" />
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Win32.Graphics.cpp" />
+    <ClCompile Include="Source\Framework\Graphics\Renderer.cpp" />
+    <ClCompile Include="Source\Framework\Platform\Application.cpp" />
+    <ClCompile Include="Source\Framework\Platform\Application.Win32.cpp" />
     <ClCompile Include="Source\Framework\Platform\OperatingSystem.Win32.cpp" />
     <ClCompile Include="Source\Framework\Platform\Process.Win32.cpp" />
-    <ClCompile Include="Source\Framework\Platform\Win32.Logger.cpp" />
-    <ClCompile Include="Source\Framework\Platform\Win32.Text.cpp" />
     <ClCompile Include="Source\Framework\Text\StringBuilder.cpp" />
     <ClCompile Include="Source\Framework\Text\Text.cpp" />
+    <ClCompile Include="Source\Framework\Text\Text.Win32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\External\imgui\v1.89.1\backends\imgui_impl_vulkan.h" />
@@ -42,6 +45,8 @@
     <ClInclude Include="Source\Framework\Debug\Debug.hpp" />
     <ClInclude Include="Source\Framework\Debug\Logger.hpp" />
     <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp" />
+    <ClInclude Include="Source\Framework\Graphics\Renderer.hpp" />
+    <ClInclude Include="Source\Framework\Platform\Application.hpp" />
     <ClInclude Include="Source\Framework\Platform\OperatingSystem.hpp" />
     <ClInclude Include="Source\Framework\Platform\Process.hpp" />
     <ClInclude Include="Source\Framework\Text\StringBuilder.hpp" />
