@@ -46,6 +46,7 @@
     <ClInclude Include="Source\Framework\Debug\Debug.hpp" />
     <ClInclude Include="Source\Framework\Debug\Logger.hpp" />
     <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp" />
+    <ClInclude Include="Source\Framework\Graphics\Graphics.hpp" />
     <ClInclude Include="Source\Framework\Graphics\Renderer.vk.hpp" />
     <ClInclude Include="Source\Framework\Graphics\ShaderCompiler.hpp" />
     <ClInclude Include="Source\Framework\Platform\Application.hpp" />

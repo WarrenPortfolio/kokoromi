@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Framework/Graphics/Graphics.hpp>
+
 #include <vulkan/vulkan.h>
 
 #include <unordered_map>
@@ -25,11 +27,11 @@ namespace W
 		std::vector<VkPresentModeKHR> PresentModes;
 	};
 
-	class Renderer
+	class RendererVK
 	{
 	public:
-		Renderer();
-		~Renderer();
+		RendererVK();
+		~RendererVK();
 
 		void Startup();
 		void Shutdown();
@@ -138,5 +140,4 @@ namespace W
 		bool CheckValidationLayerSupport();
 		uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 	};
-
 } // namespace W

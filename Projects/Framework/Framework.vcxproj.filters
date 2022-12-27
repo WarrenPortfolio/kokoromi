@@ -161,6 +161,9 @@
     <ClInclude Include="Source\Framework\Graphics\ShaderCompiler.hpp">
       <Filter>Framework\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Framework\Graphics\Graphics.hpp">
+      <Filter>Framework\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Directory.Build.props" />

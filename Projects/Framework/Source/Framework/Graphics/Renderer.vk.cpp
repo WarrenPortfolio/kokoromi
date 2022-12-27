@@ -60,19 +60,19 @@ static std::vector<char> ReadFile(const std::string& filePath)
 namespace W
 {
 	//////////////////////////////////////////////////////////////////////////
-	//                               Renderer                               //
+	//                               RendererVK                             //
 	//////////////////////////////////////////////////////////////////////////
-	Renderer::Renderer() = default;
-	Renderer::~Renderer() = default;
+	RendererVK::RendererVK() = default;
+	RendererVK::~RendererVK() = default;
 
-	void Renderer::Startup()
+	void RendererVK::Startup()
 	{
 		InitRenderDoc();
 		InitVulkan();
 		InitImGui();
 	}
 
-	void Renderer::Shutdown()
+	void RendererVK::Shutdown()
 	{
 		VK_CHECK(vkDeviceWaitIdle(mDevice));
 
@@ -106,7 +106,7 @@ namespace W
 		vkDestroyInstance(mInstance, nullptr);
 	}
 
-	void Renderer::FrameRender()
+	void RendererVK::FrameRender()
 	{
 		mCurrentFrame = (mCurrentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 		FrameData& frameData = mFrameData[mCurrentFrame];
@@ -172,7 +172,7 @@ namespace W
 		}
 	}
 
-	void Renderer::FramePresent()
+	void RendererVK::FramePresent()
 	{
 		FrameData& frameData = mFrameData[mCurrentFrame];
 
@@ -200,7 +200,7 @@ namespace W
 		}
 	}
 
-	void Renderer::InitRenderDoc()
+	void RendererVK::InitRenderDoc()
 	{
 #ifdef INIT_RENDER_DOC
 		static RENDERDOC_API_1_3_0* s_renderDocApi = nullptr;
@@ -214,7 +214,7 @@ namespace W
 #endif // INIT_RENDER_DOC
 	}
 
-	void Renderer::InitImGui()
+	void RendererVK::InitImGui()
 	{
 		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
@@ -228,7 +228,7 @@ namespace W
 		ImGui::StyleColorsDark();
 		//ImGui::StyleColorsClassic();
 
-		// Setup Platform/Renderer bindings
+		// Setup Platform/RendererVK bindings
 		ImGui_ImplWin32_Init((void*)Application::Current().MainWindow());
 		ImGui_ImplVulkan_InitInfo init_info = {};
 		init_info.Instance = mInstance;
@@ -270,7 +270,7 @@ namespace W
 		}
 	}
 
-	void Renderer::InitVulkan()
+	void RendererVK::InitVulkan()
 	{
 		// Create Vulkan Instance
 		VK::CreateInstance(&mInstance);
@@ -297,7 +297,7 @@ namespace W
 		CreateFrameData();
 	}
 
-	void Renderer::CleanupSwapChain()
+	void RendererVK::CleanupSwapChain()
 	{
 		vkDestroyImageView(mDevice, mDepthImageView, nullptr);
 		vkDestroyImage(mDevice, mDepthImage, nullptr);
@@ -320,7 +320,7 @@ namespace W
 		vkDestroySwapchainKHR(mDevice, mSwapChain, nullptr);
 	}
 
-	void Renderer::RecreateSwapChain()
+	void RendererVK::RecreateSwapChain()
 	{
 		vkDeviceWaitIdle(mDevice);
 
@@ -333,7 +333,7 @@ namespace W
 		CreateFramebuffers();
 	}
 
-	void Renderer::CreateLogicalDevice()
+	void RendererVK::CreateLogicalDevice()
 	{
 		QueueFamilyIndices indices = FindQueueFamilies(mPhysicalDevice);
 
@@ -377,7 +377,7 @@ namespace W
 		vkGetDeviceQueue(mDevice, indices.PresentFamily, 0, &mPresentQueue);
 	}
 
-	void Renderer::CreateSwapChain()
+	void RendererVK::CreateSwapChain()
 	{
 		SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(mPhysicalDevice);
 
@@ -431,7 +431,7 @@ namespace W
 		mSwapChainExtent = extent;
 	}
 
-	void Renderer::CreateImageViews()
+	void RendererVK::CreateImageViews()
 	{
 		mSwapChainImageViews.resize(mSwapChainImages.size());
 
@@ -441,7 +441,7 @@ namespace W
 		}
 	}
 
-	void Renderer::CreateRenderPass()
+	void RendererVK::CreateRenderPass()
 	{
 		VkFormat depthFormat;
 		VK::GetSupportedDepthFormat(mPhysicalDevice, depthFormat);
@@ -501,7 +501,7 @@ namespace W
 		VK_CHECK(vkCreateRenderPass(mDevice, &renderPassInfo, nullptr, &mRenderPass));
 	}
 
-	void Renderer::CreateDescriptorSetLayout()
+	void RendererVK::CreateDescriptorSetLayout()
 	{
 		VkDescriptorSetLayoutBinding uboLayoutBinding = {};
 		uboLayoutBinding.binding = 0;
@@ -533,7 +533,7 @@ namespace W
 		VK_CHECK(vkCreateDescriptorSetLayout(mDevice, &layoutInfo2, nullptr, &mDescriptorSetLayout2));
 	}
 
-	void Renderer::CreateFramebuffers()
+	void RendererVK::CreateFramebuffers()
 	{
 		mSwapChainFramebuffers.resize(mSwapChainImageViews.size());
 
@@ -558,7 +558,7 @@ namespace W
 		}
 	}
 
-	void Renderer::CreateCommandPool()
+	void RendererVK::CreateCommandPool()
 	{
 		QueueFamilyIndices queueFamilyIndices = FindQueueFamilies(mPhysicalDevice);
 
@@ -570,7 +570,7 @@ namespace W
 		VK_CHECK(vkCreateCommandPool(mDevice, &poolInfo, nullptr, &mCommandPool));
 	}
 
-	void Renderer::CreateDepthResources()
+	void RendererVK::CreateDepthResources()
 	{
 		VkFormat depthFormat;
 		VK_CHECK(VK::GetSupportedDepthFormat(mPhysicalDevice, depthFormat));
@@ -581,7 +581,7 @@ namespace W
 		TransitionImageLayout(mDepthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, 1);
 	}
 
-	VkImageView Renderer::CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, uint32_t mipLevels)
+	VkImageView RendererVK::CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, uint32_t mipLevels)
 	{
 		VkImageViewCreateInfo viewInfo = {};
 		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -600,7 +600,7 @@ namespace W
 		return imageView;
 	}
 
-	void Renderer::CreateImage(uint32_t width, uint32_t height, uint32_t mipLevels, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory)
+	void RendererVK::CreateImage(uint32_t width, uint32_t height, uint32_t mipLevels, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory)
 	{
 		VkImageCreateInfo imageInfo = {};
 		imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -632,7 +632,7 @@ namespace W
 		vkBindImageMemory(mDevice, image, imageMemory, 0);
 	}
 
-	void Renderer::TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels)
+	void RendererVK::TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels)
 	{
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands();
 
@@ -708,7 +708,7 @@ namespace W
 		EndSingleTimeCommands(commandBuffer);
 	}
 
-	void Renderer::CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height)
+	void RendererVK::CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height)
 	{
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands();
 
@@ -728,7 +728,7 @@ namespace W
 		EndSingleTimeCommands(commandBuffer);
 	}
 
-	void Renderer::CreateDescriptorPool()
+	void RendererVK::CreateDescriptorPool()
 	{
 		std::array<VkDescriptorPoolSize, 2> poolSizes = {};
 		poolSizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
@@ -745,7 +745,7 @@ namespace W
 		VK_CHECK(vkCreateDescriptorPool(mDevice, &poolInfo, nullptr, &mDescriptorPool));
 	}
 
-	void Renderer::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory)
+	void RendererVK::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory)
 	{
 		VkBufferCreateInfo bufferInfo = {};
 		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -767,7 +767,7 @@ namespace W
 		VK_CHECK(vkBindBufferMemory(mDevice, buffer, bufferMemory, 0));
 	}
 
-	VkCommandBuffer Renderer::BeginSingleTimeCommands()
+	VkCommandBuffer RendererVK::BeginSingleTimeCommands()
 	{
 		VkCommandBufferAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -787,7 +787,7 @@ namespace W
 		return commandBuffer;
 	}
 
-	void Renderer::EndSingleTimeCommands(VkCommandBuffer commandBuffer)
+	void RendererVK::EndSingleTimeCommands(VkCommandBuffer commandBuffer)
 	{
 		vkEndCommandBuffer(commandBuffer);
 
@@ -802,7 +802,7 @@ namespace W
 		vkFreeCommandBuffers(mDevice, mCommandPool, 1, &commandBuffer);
 	}
 
-	void Renderer::CopyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size)
+	void RendererVK::CopyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size)
 	{
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands();
 
@@ -813,7 +813,7 @@ namespace W
 		EndSingleTimeCommands(commandBuffer);
 	}
 
-	uint32_t Renderer::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties)
+	uint32_t RendererVK::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties)
 	{
 		VkPhysicalDeviceMemoryProperties memProperties;
 		vkGetPhysicalDeviceMemoryProperties(mPhysicalDevice, &memProperties);
@@ -830,7 +830,7 @@ namespace W
 		return VK_MAX_MEMORY_TYPES;
 	}
 
-	VkShaderModule Renderer::CreateShaderModule(const std::vector<char>& code)
+	VkShaderModule RendererVK::CreateShaderModule(const std::vector<char>& code)
 	{
 		VkShaderModuleCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -843,7 +843,7 @@ namespace W
 		return shaderModule;
 	}
 
-	VkSurfaceFormatKHR Renderer::ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
+	VkSurfaceFormatKHR RendererVK::ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
 	{
 		if (availableFormats.size() == 1 && availableFormats[0].format == VK_FORMAT_UNDEFINED)
 		{
@@ -861,7 +861,7 @@ namespace W
 		return availableFormats[0];
 	}
 
-	VkPresentModeKHR Renderer::ChooseSwapPresentMode(const std::vector<VkPresentModeKHR> availablePresentModes)
+	VkPresentModeKHR RendererVK::ChooseSwapPresentMode(const std::vector<VkPresentModeKHR> availablePresentModes)
 	{
 		VkPresentModeKHR bestMode = VK_PRESENT_MODE_FIFO_KHR;
 
@@ -880,7 +880,7 @@ namespace W
 		return bestMode;
 	}
 
-	VkExtent2D Renderer::ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities)
+	VkExtent2D RendererVK::ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities)
 	{
 		if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max())
 		{
@@ -911,7 +911,7 @@ namespace W
 		}
 	}
 
-	SwapChainSupportDetails Renderer::QuerySwapChainSupport(VkPhysicalDevice device)
+	SwapChainSupportDetails RendererVK::QuerySwapChainSupport(VkPhysicalDevice device)
 	{
 		SwapChainSupportDetails details;
 
@@ -938,7 +938,7 @@ namespace W
 		return details;
 	}
 
-	bool Renderer::IsDeviceSuitable(VkPhysicalDevice device)
+	bool RendererVK::IsDeviceSuitable(VkPhysicalDevice device)
 	{
 		QueueFamilyIndices indices = FindQueueFamilies(device);
 		if (indices.IsComplete() == false)
@@ -962,7 +962,7 @@ namespace W
 		return extensionsSupported && swapChainAdequate && supportedFeatures.samplerAnisotropy && deviceProperties.deviceType == desiredDeviceType;
 	}
 
-	bool Renderer::CheckDeviceExtensionSupport(VkPhysicalDevice device)
+	bool RendererVK::CheckDeviceExtensionSupport(VkPhysicalDevice device)
 	{
 		uint32_t extensionCount;
 		vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
@@ -980,7 +980,7 @@ namespace W
 		return requiredExtensions.empty();
 	}
 
-	QueueFamilyIndices Renderer::FindQueueFamilies(VkPhysicalDevice device)
+	QueueFamilyIndices RendererVK::FindQueueFamilies(VkPhysicalDevice device)
 	{
 		QueueFamilyIndices indices;
 
@@ -1017,7 +1017,7 @@ namespace W
 		return indices;
 	}
 
-	std::vector<const char*> Renderer::GetRequiredExtensions()
+	std::vector<const char*> RendererVK::GetRequiredExtensions()
 	{
 		std::vector<const char*> extensions =
 		{
@@ -1033,7 +1033,7 @@ namespace W
 		return extensions;
 	}
 
-	bool Renderer::CheckValidationLayerSupport()
+	bool RendererVK::CheckValidationLayerSupport()
 	{
 		uint32_t layerCount;
 		vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
@@ -1064,7 +1064,7 @@ namespace W
 	}
 
 
-	void Renderer::CreateFrameData()
+	void RendererVK::CreateFrameData()
 	{
 		QueueFamilyIndices queueFamilyIndices = FindQueueFamilies(mPhysicalDevice);
 
@@ -1094,5 +1094,40 @@ namespace W
 				VK_CHECK(vkCreateSemaphore(mDevice, &info, nullptr, &frameData.RenderCompleteSemaphore));
 			}
 		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	//                               Graphics                               //
+	//////////////////////////////////////////////////////////////////////////
+	static std::unique_ptr<RendererVK> s_Renderer;
+
+	void Graphics::Startup()
+	{
+		s_Renderer = std::make_unique<RendererVK>();
+		s_Renderer->Startup();
+	}
+
+	void Graphics::Shutdown()
+	{
+		s_Renderer->Shutdown();
+		s_Renderer.reset();
+	}
+
+	void Graphics::FrameBegin()
+	{
+		// Start Dear ImGui Frame
+		ImGui_ImplVulkan_NewFrame();
+		ImGui_ImplWin32_NewFrame();
+		ImGui::NewFrame();
+	}
+
+	void Graphics::FrameEnd()
+	{
+		// Render Dear ImGui Frame
+		ImGui::Render();
+
+		// Frame Render
+		s_Renderer->FrameRender();
+		s_Renderer->FramePresent();
 	}
 } // namespace W

@@ -1,12 +1,8 @@
 #include "Application.hpp"
 
 #include <Framework/Debug/Debug.hpp>
-#include <Framework/Graphics/Renderer.vk.hpp>
+#include <Framework/Graphics/Graphics.hpp>
 #include <Framework/Graphics/ShaderCompiler.hpp>
-
-#include <imgui.h>
-#include <backends/imgui_impl_win32.h>
-#include <backends/imgui_impl_vulkan.h>
 
 // C++ Standard Library
 #include <chrono>
@@ -82,9 +78,8 @@ namespace W
 
 		mMainWindow = (uint64_t)hwnd;
 
-		// create graphics
-		Renderer* renderer = new Renderer();
-		renderer->Startup();
+		// startup graphics engine
+		Graphics::Startup();
 
 		// build shaders
 		ShaderCompiler::Compile_SPIRV_GLSLC();
@@ -140,23 +135,14 @@ namespace W
 			// calculate delta time in seconds
 			float deltaTime = std::chrono::duration<float, std::chrono::seconds::period>(currentFrameTime - previosFrameTime).count();
 
+			Graphics::FrameBegin();
 			{
-				// Start the Dear ImGui frame
-				ImGui_ImplVulkan_NewFrame();
-				ImGui_ImplWin32_NewFrame();
-				ImGui::NewFrame();
-
 				if (mTickCallback != nullptr)
 				{
 					mTickCallback(deltaTime);
 				}
-
-				// Render the Dear ImGui frame
-				ImGui::Render();
 			}
-
-			renderer->FrameRender();
-			renderer->FramePresent();
+			Graphics::FrameEnd();
 		}
 
 		// application shutdown
@@ -165,9 +151,8 @@ namespace W
 			mShutdownCallback();
 		}
 
-		// destroy graphics
-		renderer->Shutdown();
-		delete renderer;
+		// shutdown graphics engine
+		Graphics::Shutdown();
 
 		::DestroyWindow(hwnd);
 		::UnregisterClass(wc.lpszClassName, wc.hInstance);
