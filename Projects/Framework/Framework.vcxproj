@@ -23,7 +23,7 @@
     <ClCompile Include="Source\Framework\Debug\Logger.Win32.cpp" />
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Graphics.cpp" />
     <ClCompile Include="Source\Framework\Graphics\Backend\Vk.Win32.Graphics.cpp" />
-    <ClCompile Include="Source\Framework\Graphics\Renderer.cpp" />
+    <ClCompile Include="Source\Framework\Graphics\Renderer.vk.cpp" />
     <ClCompile Include="Source\Framework\Graphics\ShaderCompiler.vk.cpp" />
     <ClCompile Include="Source\Framework\Platform\Application.cpp" />
     <ClCompile Include="Source\Framework\Platform\Application.Win32.cpp" />
@@ -46,7 +46,7 @@
     <ClInclude Include="Source\Framework\Debug\Debug.hpp" />
     <ClInclude Include="Source\Framework\Debug\Logger.hpp" />
     <ClInclude Include="Source\Framework\Graphics\Backend\Vk.Graphics.hpp" />
-    <ClInclude Include="Source\Framework\Graphics\Renderer.hpp" />
+    <ClInclude Include="Source\Framework\Graphics\Renderer.vk.hpp" />
     <ClInclude Include="Source\Framework\Graphics\ShaderCompiler.hpp" />
     <ClInclude Include="Source\Framework\Platform\Application.hpp" />
     <ClInclude Include="Source\Framework\Platform\OperatingSystem.hpp" />

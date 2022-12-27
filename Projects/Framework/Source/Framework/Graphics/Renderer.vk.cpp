@@ -22,7 +22,7 @@
 #include <renderdoc_app.h>
 #endif
 
-#include "Renderer.hpp"
+#include "Renderer.vk.hpp"
 
 #include <Framework/Debug/Debug.hpp>
 #include <Framework/Graphics/Backend/Vk.Graphics.hpp>

@@ -93,7 +93,7 @@
     <ClCompile Include="Source\Framework\Platform\Application.cpp">
       <Filter>Framework\Platform</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Framework\Graphics\Renderer.cpp">
+    <ClCompile Include="Source\Framework\Graphics\Renderer.vk.cpp">
       <Filter>Framework\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Source\Framework\Platform\Application.Win32.cpp">
@@ -155,7 +155,7 @@
     <ClInclude Include="Source\Framework\Platform\Application.hpp">
       <Filter>Framework\Platform</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Framework\Graphics\Renderer.hpp">
+    <ClInclude Include="Source\Framework\Graphics\Renderer.vk.hpp">
       <Filter>Framework\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework\Graphics\ShaderCompiler.hpp">
