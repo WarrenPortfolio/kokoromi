@@ -1,7 +1,6 @@
 #include "Application.h"
 
 #include <kokoromi/Renderer.h>
-#include <kokoromi/Build.h>
 
 #include <Framework/Debug/Debug.hpp>
 
@@ -62,9 +61,6 @@ void Application::Shutdown()
 
 void Application::Run()
 {
-	// Build Data
-	Build::CompileShaders();
-
 	// Register the window class
 	WNDCLASSEX wc = {};
 	wc.cbSize = sizeof(WNDCLASSEX);

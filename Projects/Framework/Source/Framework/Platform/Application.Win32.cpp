@@ -2,6 +2,7 @@
 
 #include <Framework/Debug/Debug.hpp>
 #include <Framework/Graphics/Renderer.hpp>
+#include <Framework/Graphics/ShaderCompiler.hpp>
 
 #include <imgui.h>
 #include <backends/imgui_impl_win32.h>
@@ -28,7 +29,7 @@ constexpr int WINDOW_HEIGHT = 720;
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Win32 message handler
-LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+static LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
 	// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
@@ -79,21 +80,25 @@ namespace W
 		);
 		Debug_AssertMsg(hwnd != NULL, "failed to create window");
 
-		// Show the window
-		::ShowWindow(hwnd, SW_SHOWDEFAULT);
-		::UpdateWindow(hwnd);
-
 		mMainWindow = (uint64_t)hwnd;
 
 		// create graphics
 		Renderer* renderer = new Renderer();
 		renderer->Startup();
 
+		// build shaders
+		ShaderCompiler::Compile_SPIRV_GLSLC();
+		ShaderCompiler::Compile_SPIRV_DXC();
+
 		// application startup
 		if (mStartupCallback != nullptr)
 		{
 			mStartupCallback();
 		}
+
+		// Show the window
+		::ShowWindow(hwnd, SW_SHOWDEFAULT);
+		::UpdateWindow(hwnd);
 
 		// On Windows, steady_clock is now based on QueryPerformanceCounter()
 		// https://docs.microsoft.com/en-us/cpp/standard-library/chrono
@@ -152,6 +157,12 @@ namespace W
 
 			renderer->FrameRender();
 			renderer->FramePresent();
+		}
+
+		// application shutdown
+		if (mShutdownCallback != nullptr)
+		{
+			mShutdownCallback();
 		}
 
 		// destroy graphics

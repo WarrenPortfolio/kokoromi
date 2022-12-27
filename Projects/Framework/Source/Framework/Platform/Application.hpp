@@ -11,6 +11,9 @@ namespace W
 		using AppStartupDelegate = void(*)();
 		AppStartupDelegate mStartupCallback = nullptr;
 
+		using AppShutdownDelegate = void(*)();
+		AppShutdownDelegate mShutdownCallback = nullptr;
+
 		using AppTickDelegate = void(*)(float deltaTime);
 		AppTickDelegate mTickCallback = nullptr;
 

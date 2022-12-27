@@ -16,9 +16,6 @@
     <ClCompile Include="Source\kokoromi\Scene.cpp">
       <Filter>kokoromi</Filter>
     </ClCompile>
-    <ClCompile Include="Source\kokoromi\Build.cpp">
-      <Filter>kokoromi</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\kokoromi\Application.h">
@@ -28,9 +25,6 @@
       <Filter>kokoromi</Filter>
     </ClInclude>
     <ClInclude Include="Source\kokoromi\Scene.h">
-      <Filter>kokoromi</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\kokoromi\Build.h">
       <Filter>kokoromi</Filter>
     </ClInclude>
   </ItemGroup>

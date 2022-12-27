@@ -57,36 +57,6 @@ static std::vector<char> ReadFile(const std::string& filePath)
 	return buffer;
 }
 
-//////////////////////////////////////////////////////////////////////////
-//                           World Scene Data                           //
-//////////////////////////////////////////////////////////////////////////
-static VkClearColorValue s_BackgroundColor = { 0.0f, 0.0f, 0.0f, 1.0f };
-
-static float s_AmbientLightColor[3] = { 0.13f, 0.17f, 0.19f };
-static float s_AmbientLightIntensity = 0.3f;
-
-static float s_DirectionalLightColor[3] = { 255.0f / 255.0f, 239.0f / 255.0f, 230.0f / 255.0f }; // 5700 kelvin
-static float s_DirectionalLightIntensity = 0.7f;
-
-//////////////////////////////////////////////////////////////////////////
-//                            Material Data                             //
-//////////////////////////////////////////////////////////////////////////
-static float s_MaterialColor[3] = { 1.0f, 1.0f, 1.0f };
-static float s_MaterialSpecularColor[3] = { 0.3f, 0.3f, 0.3f };
-static float s_MaterialRoughness = 0.5f;
-
-//////////////////////////////////////////////////////////////////////////
-//                         Vulkan Debug Layer                           //
-//////////////////////////////////////////////////////////////////////////
-void DestroyDebugReportCallbackEXT(VkInstance instance, VkDebugReportCallbackEXT callback, const VkAllocationCallbacks* pAllocator)
-{
-	auto func = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugReportCallbackEXT");
-	if (func != nullptr)
-	{
-		func(instance, callback, pAllocator);
-	}
-}
-
 namespace W
 {
 	//////////////////////////////////////////////////////////////////////////
@@ -130,61 +100,10 @@ namespace W
 		vkDestroyCommandPool(mDevice, mCommandPool, nullptr);
 		vkDestroyDevice(mDevice, nullptr);
 
-		if (W::VK::s_enableValidationLayers)
-		{
-			DestroyDebugReportCallbackEXT(mInstance, mCallbackExt, nullptr);
-		}
+		VK::DestroyDebugReport(mInstance, mCallbackExt);
 
 		vkDestroySurfaceKHR(mInstance, mSurface, nullptr);
 		vkDestroyInstance(mInstance, nullptr);
-	}
-
-	void Renderer::FrameUpdate(float deltaTime)
-	{
-		// Start the Dear ImGui frame
-		ImGui_ImplVulkan_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
-
-		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-		static bool show_demo_window = false;
-		if (show_demo_window)
-		{
-			ImGui::ShowDemoWindow(&show_demo_window);
-		}
-
-		// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-		if (ImGui::Begin("Property Panel"))
-		{
-			ImGui::PushItemWidth(150.0f);
-
-			ImGui::Text("deltaTime: %.5f", deltaTime);
-
-			ImGui::Checkbox("Demo Window", &show_demo_window); // Edit bools storing our window open/close state
-			ImGui::ColorEdit3("Background Color", s_BackgroundColor.float32);
-
-			ImGui::Separator(); // -----------------------------------------------
-
-			ImGui::ColorEdit3("Ambient Color", s_AmbientLightColor);
-			ImGui::DragFloat("Ambient Intensity", &s_AmbientLightIntensity, 0.01f);
-
-			ImGui::Separator(); // -----------------------------------------------
-
-			ImGui::ColorEdit3("Light Color", s_DirectionalLightColor);
-			ImGui::DragFloat("Light Intensity", &s_DirectionalLightIntensity, 0.01f);
-
-			ImGui::Separator(); // -----------------------------------------------
-
-			ImGui::ColorEdit3("Material Color", s_MaterialColor);
-			ImGui::ColorEdit3("Material Specular Color", s_MaterialSpecularColor);
-			ImGui::DragFloat("Material Roughness", &s_MaterialRoughness, 0.01f, 0.0f, 1.0f);
-
-			ImGui::PopItemWidth();
-		}
-		ImGui::End();
-
-		// Render the Dear ImGui frame
-		ImGui::Render();
 	}
 
 	void Renderer::FrameRender()
@@ -221,7 +140,7 @@ namespace W
 			info.renderArea.extent = mSwapChainExtent;
 
 			std::array<VkClearValue, 2> clearValues = {};
-			clearValues[0].color = s_BackgroundColor;
+			clearValues[0].color = { 0.0f, 0.0f, 0.0f, 1.0f };
 			clearValues[1].depthStencil = { 1.0f, 0 };
 
 			info.clearValueCount = static_cast<uint32_t>(clearValues.size());
@@ -354,14 +273,14 @@ namespace W
 	void Renderer::InitVulkan()
 	{
 		// Create Vulkan Instance
-		W::VK::CreateInstance(&mInstance);
-		W::VK::CreateDebugReport(mInstance, &mCallbackExt);
+		VK::CreateInstance(&mInstance);
+		VK::CreateDebugReport(mInstance, &mCallbackExt);
 
 		// Select GPU
-		W::VK::PickPhysicalDevice(mInstance, &mPhysicalDevice);
+		VK::PickPhysicalDevice(mInstance, &mPhysicalDevice);
 
 		// Create Surface
-		W::VK::CreateWindowSurface(Application::Current().MainWindow(), mInstance, &mSurface);
+		VK::CreateWindowSurface(Application::Current().MainWindow(), mInstance, &mSurface);
 
 		CreateLogicalDevice();
 		CreateSwapChain();
@@ -373,7 +292,7 @@ namespace W
 		CreateFramebuffers();
 
 		// Create Descriptor Pool
-		W::VK::CreateDescriptorPool(mDevice, &mDescriptorPool);
+		VK::CreateDescriptorPool(mDevice, &mDescriptorPool);
 
 		CreateFrameData();
 	}
@@ -446,7 +365,7 @@ namespace W
 		createInfo.enabledExtensionCount = static_cast<uint32_t>(deviceExtensions.size());
 		createInfo.ppEnabledExtensionNames = deviceExtensions.data();
 
-		if (W::VK::s_enableValidationLayers)
+		if (VK::s_enableValidationLayers)
 		{
 			createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
 			createInfo.ppEnabledLayerNames = validationLayers.data();
@@ -525,7 +444,7 @@ namespace W
 	void Renderer::CreateRenderPass()
 	{
 		VkFormat depthFormat;
-		::W::VK::GetSupportedDepthFormat(mPhysicalDevice, depthFormat);
+		VK::GetSupportedDepthFormat(mPhysicalDevice, depthFormat);
 
 		VkAttachmentDescription colorAttachment = {};
 		colorAttachment.format = mSwapChainImageFormat;
@@ -654,7 +573,7 @@ namespace W
 	void Renderer::CreateDepthResources()
 	{
 		VkFormat depthFormat;
-		VK_CHECK(W::VK::GetSupportedDepthFormat(mPhysicalDevice, depthFormat));
+		VK_CHECK(VK::GetSupportedDepthFormat(mPhysicalDevice, depthFormat));
 
 		CreateImage(mSwapChainExtent.width, mSwapChainExtent.height, 1, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, mDepthImage, mDepthImageMemory);
 		mDepthImageView = CreateImageView(mDepthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, 1);
@@ -1106,7 +1025,7 @@ namespace W
 			VK_KHR_WIN32_SURFACE_EXTENSION_NAME
 		};
 
-		if (W::VK::s_enableValidationLayers)
+		if (VK::s_enableValidationLayers)
 		{
 			extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
 		}

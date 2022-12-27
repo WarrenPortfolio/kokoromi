@@ -34,7 +34,6 @@ namespace W
 		void Startup();
 		void Shutdown();
 
-		void FrameUpdate(float deltaTime);
 		void FrameRender();
 		void FramePresent();
 

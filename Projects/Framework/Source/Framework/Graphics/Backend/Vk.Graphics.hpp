@@ -21,9 +21,11 @@ namespace W
 		void PickPhysicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice);
 		void CreateDescriptorPool(VkDevice device, VkDescriptorPool* descriptorPool);
 
+		// device teardown
+		void DestroyDebugReport(VkInstance instance, VkDebugReportCallbackEXT callback);
+
 		// window setup
 		void CreateWindowSurface(uintptr_t hwnd, VkInstance instance, VkSurfaceKHR* surface);
-
 
 		std::vector<const char*> GetRequiredExtensions();
 		std::vector<const char*> GetValidationLayers();

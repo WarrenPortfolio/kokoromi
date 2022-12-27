@@ -1,5 +1,5 @@
 // Framework
-#include "Framework/Platform/Application.hpp"
+#include <Framework/Platform/Application.hpp>
 
 // Dear ImGui
 #include <imgui.h>
@@ -67,6 +67,11 @@ void App_Tick(float deltaTime)
     }
 }
 
+void App_Shutdown()
+{
+
+}
+
 int APIENTRY wWinMain(
 	_In_		HINSTANCE	hInstance,
 	_In_opt_	HINSTANCE	hPrevInstance,
@@ -79,6 +84,7 @@ int APIENTRY wWinMain(
 	UNREFERENCED_PARAMETER(nCmdShow);
 
     W::Application::Current().mStartupCallback = App_Startup;
+    W::Application::Current().mShutdownCallback = App_Shutdown;
     W::Application::Current().mTickCallback = App_Tick;
     W::Application::Current().Run();
 	return EXIT_SUCCESS;

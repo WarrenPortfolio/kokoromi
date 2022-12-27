@@ -99,6 +99,9 @@
     <ClCompile Include="Source\Framework\Platform\Application.Win32.cpp">
       <Filter>Framework\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Framework\Graphics\ShaderCompiler.vk.cpp">
+      <Filter>Framework\Graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Framework\Cryptography\Hash.hpp">
@@ -153,6 +156,9 @@
       <Filter>Framework\Platform</Filter>
     </ClInclude>
     <ClInclude Include="Source\Framework\Graphics\Renderer.hpp">
+      <Filter>Framework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Framework\Graphics\ShaderCompiler.hpp">
       <Filter>Framework\Graphics</Filter>
     </ClInclude>
   </ItemGroup>

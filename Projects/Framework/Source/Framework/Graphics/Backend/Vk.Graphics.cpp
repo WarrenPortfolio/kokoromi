@@ -29,6 +29,7 @@ namespace W
 		if (func != nullptr)
 		{
 			func(instance, callback, pAllocator);
+			return VK_SUCCESS;
 		}
 		else
 		{
@@ -183,6 +184,15 @@ namespace W
 		VK_CHECK(CreateDebugReportCallbackEXT(instance, &createInfo, nullptr, callback));
 	}
 
+	void VK::DestroyDebugReport(VkInstance instance, VkDebugReportCallbackEXT callback)
+	{
+		if (!s_enableValidationLayers)
+			return;
+
+		VK_CHECK(DestroyDebugReportCallbackEXT(instance, callback, nullptr));
+	}
+
+
 	void VK::PickPhysicalDevice(VkInstance instance, VkPhysicalDevice* physicalDevice)
 	{
 		uint32_t deviceCount = 0;
@@ -241,18 +251,6 @@ namespace W
 		VK_CHECK(vkCreateDescriptorPool(device, &pool_info, nullptr, descriptorPool));
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	uint32_t VK::CalcDeviceScore(VkPhysicalDevice device)
 	{
